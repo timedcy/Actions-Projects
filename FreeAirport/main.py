@@ -16,5 +16,5 @@ def generate_md(source, date, ssr_link):
 
 
 if __name__ == "__main__":
-    date = datetime.date.today()
+    date = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     generate_md("ssr", date=date, ssr_link=test.thessr())
