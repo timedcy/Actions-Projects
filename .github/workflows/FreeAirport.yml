@@ -24,7 +24,8 @@ jobs:
     - name: Working
       timeout-minutes: 2
       run: |
-        python ./FreeAirport/main.py
+        cd FreeAirport/
+        python main.py
     - name: Commit files
       run: |
         git config --local user.email "action@github.com"
