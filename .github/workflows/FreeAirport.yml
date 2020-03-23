@@ -20,7 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r ./FreeAriport/requirements.txt
+        pip install -r ./FreeAirport/requirements.txt
     - name: Working
       timeout-minutes: 2
       run: |
