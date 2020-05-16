@@ -1,0 +1,59 @@
+# This is a basic workflow to help you get started with Actions
+
+name: EpicGames
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  issues:
+    types:[opened, edited, milestoned]
+  schedule:
+    - cron: "25 2 * * *"
+  push:
+    branches: [ master ]
+  
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  MainWork:
+    runs-on: ubuntu-latest
+    steps:      
+      - name: Clone Workflow Repository
+        uses: actions/checkout@v2
+
+      - name: Clone Claimer Repository
+        uses: actions/checkout@v2
+        with:
+          repository: lingsamuel/epicgames-freebies-claimer
+          ref: 'aa21c57d0ef19948a4f2864207173c86d5c0ffb7'
+          path: workdir
+
+      # 在 'Settings' - 'Secrets' 添加 EMAIL (你的 Epic 邮箱)，PASSWD (你的 Epic 密码)，SECRET（二步验证 Secret）
+      - name: Get Gifts
+        run: |
+          cd workdir
+          npm install
+          node claimer '${{ secrets.EpicGames_Email_1 }}' '${{ secrets.EpicGames_Password_1 }}' 0 '${{ secrets.EpicGames_2FA }}' > games.info
+      
+      - name: Edit Games.info
+        if: always()
+        run: |
+          cd workdir
+          sed -i '1d' games.info
+          sed -i 's/Successfully claimed/成功领取/' games.info
+          sed -i 's/was already claimed for this account/已经领取/' games.info
+          sed -i '$d' games.info
+          date --rfc-3339=seconds >> ../games.info
+          cat games.info >> ../games.info
+          echo >> ../games.info
+
+#       如果需要推送到 Telegram 用来提示，取消注释以下内容
+#       这部分的内容可以查看 https://www.github.com/appleboy/telegram-action
+      - name: Send Gift Info
+        if: always()
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHATID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: markdown
+          message_file: workdir/games.info
