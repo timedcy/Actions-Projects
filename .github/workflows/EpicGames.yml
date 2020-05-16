@@ -6,7 +6,7 @@ name: EpicGames
 # events but only for the master branch
 on:
   issues:
-    types:[opened, edited, milestoned]
+    types: [opened, edited, milestoned]
   schedule:
     - cron: "25 2 * * *"
   push:
