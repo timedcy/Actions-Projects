@@ -24,10 +24,10 @@ jobs:
           repository: luolongfei/freenom 
           path: freenom
 
-    - name: Edit Config.php & .env 后运行
+    - name: Edit Config.php & .env
       run: |
-       mv -f ./freenomconfig/config.php ./freenom/
-       mv -f ./freenomconfig/.env /freenom/
+       pwd
+       mv -f freenomconfig/* ./freenom/
        cd freenom && php run
        
        
