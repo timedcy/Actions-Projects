@@ -26,8 +26,8 @@ jobs:
 
     - name: Edit Config.php & .env
       run: |
-       \cp freenomconfig/config.php /freenom
-       \cp freenomconfig/.env /freenom
+       \cp freenomconfig/config.php /freenom/config.php
+       \cp freenomconfig/.env /freenom/.env
        cd freenom && php run
        
        
