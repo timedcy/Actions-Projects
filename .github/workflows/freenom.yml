@@ -33,7 +33,13 @@ jobs:
        do
          echo $line
        done
-       ls -a && php run
-       
-       
-     
+       ls -a && php run > log.log 2>&1
+ 
+    - name: Send Gift Info
+      if: always()
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_CHATID }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        format: markdown
+        message_file: freenom/log.log
