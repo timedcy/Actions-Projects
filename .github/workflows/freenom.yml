@@ -1,0 +1,34 @@
+name: freenom
+
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  issues:
+    - types: [opened, edited, milestoned]
+
+jobs:
+  run_php:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: setup-php
+      uses: khs1994-docker/actions-setup-php@0.0.1
+
+    - name: Checkout
+      uses: actions/checkout@v2
+    
+    - name: Checkout tools repo
+      uses: actions/checkout@v2
+      with:
+          repository: luolongfei/freenom 
+          path: freenom
+
+    - name: Edit Config.php & .env
+      run: |
+       \cp freenomconfig/config.php /freenom
+       \cp freenomconfig/.env /freenom
+       cd freenom && php run
+       
+       
+     
