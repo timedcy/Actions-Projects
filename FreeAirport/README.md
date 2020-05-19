@@ -7,4 +7,4 @@
 
 来源 | 更新日期 | SSR 订阅链接
 :---- | :-: | ----:
-ssr | 2020-05-19 16:12:04 | [链接](https://thessr.shop/link/iSDPuupkSCK0jGEg)
+ssr | 2020-05-19 16:23:50 | [链接](https://thessr.shop/link/Gy3fSODqtlgWgGLr)
