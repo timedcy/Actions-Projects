@@ -17,8 +17,6 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v2
-      with:
-          path: main
     
     - name: Checkout tools repo
       uses: actions/checkout@v2
@@ -26,10 +24,10 @@ jobs:
           repository: luolongfei/freenom 
           path: freenom
 
-    - name: Edit Config.php & .env
+    - name: Edit Config.php & .env 后运行
       run: |
-       \cp main/freenomconfig/config.php /freenom/config.php
-       \cp main/freenomconfig/.env /freenom/.env
+       mv -f ./freenomconfig/config.php ./freenom/
+       mv -f ./freenomconfig/.env /freenom/
        cd freenom && php run
        
        
