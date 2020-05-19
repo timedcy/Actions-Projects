@@ -26,9 +26,8 @@ jobs:
 
     - name: Edit Config.php & .env
       run: |
-       pwd
-       mv -f freenomconfig/* ./freenom/
-       cd freenom && ls && php run
+       mv -f freenomconfig/ ./freenom/
+       cd freenom && ls -a && php run
        
        
      
