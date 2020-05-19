@@ -28,7 +28,7 @@ jobs:
       run: |
        pwd
        mv -f freenomconfig/* ./freenom/
-       cd freenom && php run
+       cd freenom && ls && php run
        
        
      
