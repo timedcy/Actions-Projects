@@ -1,0 +1,44 @@
+name: glados-checkin
+
+on:
+  
+  schedule:
+    - cron:  0 16 * * * 
+  issue_comment:
+    - types: [created, deleted, edited]
+
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with: 
+        repository: xiaomustudent/glados-checkin
+
+
+
+    - name: Install Python
+      run: |
+        sudo apt update && \
+        sudo apt install python3
+             
+    - name: requirements
+      run: |
+        pip3 install -r requirements.txt
+
+    - name: Checkin
+
+      run: |
+
+        python3 checkin.py 
+
+      env: 
+
+        SERVE: ${{ secrets.SERVE }}
+
+        SCKEY: ${{ secrets.SCKEY }}
+
+        COOKIE: ${{ secrets.GLADOSCOOKIE }}
