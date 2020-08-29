@@ -2,7 +2,7 @@ import os
 import requests 
 from bs4 import BeautifulSoup
 
-COOKIE = os.environ(['COOKIE'])
+COOKIE = os.environ['COOKIE']
 SCKEY = os.environ["SCKEY"]
 
 def pushinfo(info,specific):
