@@ -36,4 +36,4 @@ jobs:
 
         COOKIE: ${{ secrets.GLADOSCOOKIE }}
     - name: Debug
-        uses: P3TERX/debugger-action@master
+      uses: P3TERX/debugger-action@master
