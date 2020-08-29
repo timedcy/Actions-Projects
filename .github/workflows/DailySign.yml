@@ -17,7 +17,9 @@ jobs:
       run: |
         sudo apt update && \
         sudo apt install python3
-             
+    - name: Debug
+      uses: P3TERX/debugger-action@master
+                   
     - name: requirements
       run: |
         pip3 install -r requirements.txt
