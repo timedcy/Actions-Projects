@@ -19,15 +19,12 @@ jobs:
         sudo apt install python3
     - name: Debug
       uses: P3TERX/debugger-action@master
-                   
-    - name: requirements
-      run: |
-        pip3 install -r requirements.txt
 
     - name: Checkin
 
       run: |
-        cd DailySign/glados-checkin-master/
+        cd ./DailySign/glados-checkin-master
+        pip3 install -r requirements.txt
         python3 checkin.py 
 
       env: 
