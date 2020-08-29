@@ -6,6 +6,7 @@ sever = 'on'
 sckey = os.environ["SCKEY"]
 #'SCU89402Tf98b7f01ca3394b9ce9aa5e2ed1abbae5e6ca42796bb9'
 # 填入glados账号对应cookie
+#cookie = '__cfduid=d3459ec306384ca67a65170f8e2a5bd561593049467; _ga=GA1.2.766373509.1593049472; _gid=GA1.2.1338236108.1593049472; koa:sess=eyJ1c2VySWQiOjQ0MTc0LCJfZXhwaXJlIjoxNjI0NjM4NzgyMDU3LCJfbWF4QWdlIjoyNTkyMDAwMDAwMH0=; koa:sess.sig=aR81loBaEMKmuG0EkAx1NT1dVWI'
 cookie = os.environ["COOKIE"]
 
 
