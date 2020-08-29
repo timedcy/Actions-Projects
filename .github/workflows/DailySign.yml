@@ -59,7 +59,7 @@ jobs:
       #   if: ${{ failure() }}
       #   uses: P3TERX/debugger-action@master
 
-  52POJIE:
+  _52POJIE:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
