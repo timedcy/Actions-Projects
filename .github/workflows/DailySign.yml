@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-         uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Install Python
         run: |
@@ -47,7 +47,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-          
+
       - name: Run app
         run: npm install
       - run: node app.js
@@ -56,5 +56,5 @@ jobs:
           PUSH_KEY: ${{ secrets.SCKEY }}
 
       - name: SSH connection to Actions
-          if: ${{ failure() }}
+        if: ${{ failure() }}
         uses: P3TERX/debugger-action@master
