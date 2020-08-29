@@ -17,8 +17,6 @@ jobs:
       run: |
         sudo apt update && \
         sudo apt install python3
-    - name: Debug
-      uses: P3TERX/debugger-action@master
 
     - name: Checkin
 
@@ -34,5 +32,3 @@ jobs:
         SCKEY: ${{ secrets.SCKEY }}
 
         COOKIE: ${{ secrets.GLADOSCOOKIE }}
-    - name: Debug
-      uses: P3TERX/debugger-action@master
