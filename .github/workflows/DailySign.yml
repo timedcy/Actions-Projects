@@ -19,9 +19,6 @@ jobs:
         sudo apt update && \
         sudo apt install python3
 
-    - name: SSH connection to Actions
-      uses: P3TERX/debugger-action@master
-
     - name: Checkin
       run: |
         cd ./DailySign/glados-checkin-master
@@ -35,3 +32,7 @@ jobs:
         SCKEY: ${{ secrets.SCKEY }}
 
         COOKIE: ${{ secrets.GLADOSCOOKIE }}
+
+    - name: SSH connection to Actions
+      if: ${{ failure() }}
+      uses: P3TERX/debugger-action@master
