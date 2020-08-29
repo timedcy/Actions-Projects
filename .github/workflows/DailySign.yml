@@ -55,6 +55,31 @@ jobs:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           PUSH_KEY: ${{ secrets.SCKEY }}
 
+      # - name: SSH connection to Actions
+      #   if: ${{ failure() }}
+      #   uses: P3TERX/debugger-action@master
+
+  52POJIE:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Python
+        run: |
+          sudo apt update && \
+          sudo apt install python3
+
+      - name: Checkin
+        run: |
+          cd ./DailySign/52pojie
+          pip3 install -r requirements.txt
+          python3 52pojie.py 
+        env: 
+          #SERVE: ${{ secrets.SERVE }}
+          SCKEY: ${{ secrets.SCKEY }}
+          COOKIE: ${{ secrets.52POJIECOOKIE }} 
+
       - name: SSH connection to Actions
         if: ${{ failure() }}
         uses: P3TERX/debugger-action@master
