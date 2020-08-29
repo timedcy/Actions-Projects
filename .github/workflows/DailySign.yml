@@ -1,6 +1,7 @@
 name: DailySign
 
-on:  
+on:
+  push:  
   schedule:
     - cron:  0 16 * * * 
   issues:
@@ -17,7 +18,7 @@ jobs:
       run: |
         sudo apt update && \
         sudo apt install python3
-        
+
     - name: SSH connection to Actions
       uses: P3TERX/debugger-action@master
 
