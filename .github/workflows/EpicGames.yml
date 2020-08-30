@@ -35,7 +35,7 @@ jobs:
         run: |
           cd workdir
           npm install
-          node claimer '${{ secrets.EpicGames_Email_1 }}' '${{ secrets.EpicGames_Password_1 }}' 0 '${{ secrets.EpicGames_2FA }}' > games.info
+          node start '${{ secrets.EpicGames_Email_1 }}' '${{ secrets.EpicGames_Password_1 }}' 0 '${{ secrets.EpicGames_2FA }}' > games.info
       
       - name: Edit Games.info
         if: always()
