@@ -75,9 +75,9 @@ jobs:
 
         - name: Fix Epicgames Client Bug
           run: mkdir -p .egstore
-          
-        - name: SSH connection to Actions
-          uses: P3TERX/debugger-action@master
+
+        # - name: SSH connection to Actions
+        #   uses: P3TERX/debugger-action@master
 
         - name: Get Epic Freebies
           id: epic
