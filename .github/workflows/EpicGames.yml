@@ -28,9 +28,8 @@ jobs:
           path: workdir
 
       - name: SSH connection to Actions
-        if: ${{ failure() }}
         uses: P3TERX/debugger-action@master
-        
+
       # 在 'Settings' - 'Secrets' 添加 EMAIL (你的 Epic 邮箱)，PASSWD (你的 Epic 密码)，SECRET（二步验证 Secret）
       - name: Get Gifts
         run: |
