@@ -78,8 +78,7 @@ jobs:
 
         - name: Get Epic Freebies
           id: epic
-          run: yarn start '${{ secrets.EpicGames_Email_1 }}' '${{ secrets.EpicGames_Password_1 }}' 0 '${{ secrets.EpicGames_2FA }}'
+          run: yarn start '${{ secrets.EpicGames_Email_1 }}' '${{ secrets.EpicGames_Password_1 }}' 1 '${{ secrets.EpicGames_2FA }}'
 
         - name: SSH connection to Actions
-          #if: ${{ failure() }}
           uses: P3TERX/debugger-action@master
