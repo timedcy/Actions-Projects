@@ -75,10 +75,11 @@ jobs:
 
         - name: Fix Epicgames Client Bug
           run: mkdir -p .egstore
+          
+        - name: SSH connection to Actions
+          uses: P3TERX/debugger-action@master
 
         - name: Get Epic Freebies
           id: epic
           run: yarn start '${{ secrets.EpicGames_Email_1 }}' '${{ secrets.EpicGames_Password_1 }}' 1 '${{ secrets.EpicGames_2FA }}'
 
-        - name: SSH connection to Actions
-          uses: P3TERX/debugger-action@master
