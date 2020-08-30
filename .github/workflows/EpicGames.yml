@@ -17,47 +17,69 @@ on:
 jobs:
   MainWork:
     runs-on: ubuntu-latest
-    steps:      
-      - name: Clone Workflow Repository
-        uses: actions/checkout@v2
+#     steps:      
+#       - name: Clone Workflow Repository
+#         uses: actions/checkout@v2
 
-      - name: Clone Claimer Repository
-        uses: actions/checkout@v2
-        with:
-          repository: Revadike/epicgames-freebies-claimer
-          path: workdir
+#       - name: Clone Claimer Repository
+#         uses: actions/checkout@v2
+#         with:
+#           repository: Revadike/epicgames-freebies-claimer
+#           path: workdir
 
-      - name: SSH connection to Actions
-        uses: P3TERX/debugger-action@master
 
-      # 在 'Settings' - 'Secrets' 添加 EMAIL (你的 Epic 邮箱)，PASSWD (你的 Epic 密码)，SECRET（二步验证 Secret）
-      - name: Get Gifts
-        run: |
-          cd workdir
-          npm install
-          node start '${{ secrets.EpicGames_Email_1 }}' '${{ secrets.EpicGames_Password_1 }}' 0 '${{ secrets.EpicGames_2FA }}' > games.info
+
+#       # 在 'Settings' - 'Secrets' 添加 EMAIL (你的 Epic 邮箱)，PASSWD (你的 Epic 密码)，SECRET（二步验证 Secret）
+#       - name: Get Gifts
+#         run: |
+#           cd workdir
+#           npm install
+#           node start '${{ secrets.EpicGames_Email_1 }}' '${{ secrets.EpicGames_Password_1 }}' 0 '${{ secrets.EpicGames_2FA }}' > games.info
       
-      - name: Edit Games.info
-        if: always()
-        run: |
-          cd workdir
-          sed -i '1d' games.info
-          sed -i 's/Successfully claimed/成功领取/' games.info
-          sed -i 's/was already claimed for this account/已经领取/' games.info
-          sed -i '$d' games.info
-          date --rfc-3339=seconds >> ../games.info
-          cat games.info >> ../games.info
-          echo >> ../games.info
+#       - name: Edit Games.info
+#         if: always()
+#         run: |
+#           cd workdir
+#           sed -i '1d' games.info
+#           sed -i 's/Successfully claimed/成功领取/' games.info
+#           sed -i 's/was already claimed for this account/已经领取/' games.info
+#           sed -i '$d' games.info
+#           date --rfc-3339=seconds >> ../games.info
+#           cat games.info >> ../games.info
+#           echo >> ../games.info
 
-#       如果需要推送到 Telegram 用来提示，取消注释以下内容
-#       这部分的内容可以查看 https://www.github.com/appleboy/telegram-action
-      - name: Send Gift Info
-        if: always()
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_CHATID }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          format: markdown
-          message_file: workdir/games.info
+# #       如果需要推送到 Telegram 用来提示，取消注释以下内容
+# #       这部分的内容可以查看 https://www.github.com/appleboy/telegram-action
+#       - name: Send Gift Info
+#         if: always()
+#         uses: appleboy/telegram-action@master
+#         with:
+#           to: ${{ secrets.TELEGRAM_CHATID }}
+#           token: ${{ secrets.TELEGRAM_TOKEN }}
+#           format: markdown
+#           message_file: workdir/games.info
 
 
+
+    steps:
+        - name: Setup repo
+          uses: actions/checkout@v2
+          with:
+              repository: "Revadike/epicgames-freebies-claimer"
+
+        - name: Setup Node.js
+          uses: actions/setup-node@v1
+
+        - name: Install dependencies
+          run: yarn
+
+        - name: Fix Epicgames Client Bug
+          run: mkdir -p .egstore
+
+        - name: Get Epic Freebies
+          id: epic
+          run: yarn start '${{ secrets.EpicGames_Email_1 }}' '${{ secrets.EpicGames_Password_1 }}' 0 '${{ secrets.EpicGames_2FA }}'
+
+        - name: SSH connection to Actions
+          #if: ${{ failure() }}
+          uses: P3TERX/debugger-action@master
