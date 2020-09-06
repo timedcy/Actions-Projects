@@ -21,17 +21,27 @@ jobs:
         sudo apt-get -y install python3-setuptools
         pip3 install requests onetimepass pillow
 
-    - name: decrypt config.py
+    - name: decrypt config.py & Run 1024.PY
       run: |
         cd ./AccountBot/1024-Autoreply
         gpg --quiet --batch --yes --decrypt --passphrase="$LARGE_SECRET_PASSPHRASE" --output ./config.py config.py.gpg
+        python3 1024.py 2>&1 | tee 1024.log
       env:
         LARGE_SECRET_PASSPHRASE: ${{ secrets.LARGE_SECRET_PASSPHRASE }}
 
-    - name: SSH connection to Actions
-      if: ${{ failure() }}
-      uses: P3TERX/debugger-action@master
-      
-    - name: run 1024.py
-      run:
-        python3 1024.py
+#       如果需要推送到 Telegram 用来提示，取消注释以下内容
+#       这部分的内容可以查看 https://www.github.com/appleboy/telegram-action
+      - name: Send Info
+        if: always()
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHATID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message:  1024-Autoreply.log
+          document: ./AccountBot/1024-Autoreply/1024.log
+
+    # #NOTE: SSH Debug     
+      - name: SSH connection to Actions
+        if: ${{ failure() }}
+        uses: P3TERX/debugger-action@master
+        
