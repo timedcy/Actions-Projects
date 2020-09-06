@@ -1,0 +1,33 @@
+name: AccountBot
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '11 21 * * *'
+
+
+jobs:
+  t66y:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: checkout & Python3
+      run : |
+        sudo apt-get update
+        sudo apt-get -y install git
+        sudo apt-get -y install python3-pip
+        sudo apt-get -y install python3-setuptools
+        pip3 install requests onetimepass pillow
+
+    - name: decrypt config.py
+      run: |
+        cd ./AccountBot/1024-Autoreply
+        gpg --quiet --batch --yes --decrypt --passphrase="$LARGE_SECRET_PASSPHRASE" --output ./config.py config.py.gpg
+      env:
+        LARGE_SECRET_PASSPHRASE: ${{ secrets.LARGE_SECRET_PASSPHRASE }}
+
+    - name: run 1024.py
+      run:
+        python3 1024.py
