@@ -28,6 +28,10 @@ jobs:
       env:
         LARGE_SECRET_PASSPHRASE: ${{ secrets.LARGE_SECRET_PASSPHRASE }}
 
+    - name: SSH connection to Actions
+      if: ${{ failure() }}
+      uses: P3TERX/debugger-action@master
+      
     - name: run 1024.py
       run:
         python3 1024.py
