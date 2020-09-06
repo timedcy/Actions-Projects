@@ -31,17 +31,17 @@ jobs:
 
 #       如果需要推送到 Telegram 用来提示，取消注释以下内容
 #       这部分的内容可以查看 https://www.github.com/appleboy/telegram-action
-      - name: Send Info
-        if: always()
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_CHATID }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          message:  1024-Autoreply.log
-          document: ./AccountBot/1024-Autoreply/1024.log
+    - name: Send Info
+      if: always()
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_CHATID }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message:  1024-Autoreply.log
+        document: ./AccountBot/1024-Autoreply/1024.log
 
     # #NOTE: SSH Debug     
-      - name: SSH connection to Actions
-        if: ${{ failure() }}
-        uses: P3TERX/debugger-action@master
+    - name: SSH connection to Actions
+      if: ${{ failure() }}
+      uses: P3TERX/debugger-action@master
         
