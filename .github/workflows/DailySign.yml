@@ -71,8 +71,7 @@ jobs:
           PUSH_KEY: ${{ secrets.SCKEY }}
 
       - name: Run app.js in scripts
-
-      - run: |
+        run: |
           cd ./jd_sign_bot/
           npm install
           node jd_bean_sign.js
