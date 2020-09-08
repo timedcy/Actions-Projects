@@ -3,8 +3,8 @@ name: freenom
 on:
   schedule:
     - cron: '0 1 * * *'
-  issues:
-    types: [opened, edited, milestoned]
+#  issues:
+#    types: [opened, edited, milestoned]
 
 jobs:
   run_php:
