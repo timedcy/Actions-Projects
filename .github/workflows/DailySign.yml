@@ -75,11 +75,8 @@ jobs:
       - run: |
           cd ./jd_sign_bot/
           npm install
-        # 运行 【京豆签到脚本】
           node jd_bean_sign.js
-        # 运行 【京小超领蓝币(小费)】
           node jd_blueCoin.js
-        # 运行 【宠汪汪】
           node jd_joy.js
           node jd_joy_feedPets.js
           node jd_joy_reward.js
