@@ -72,7 +72,7 @@ jobs:
 
       - name: Run app.js in scripts
         run: |
-          cd ./jd_sign_bot/
+          cd ./scripts/
           npm install
           node jd_bean_sign.js
           node jd_blueCoin.js
@@ -93,7 +93,7 @@ jobs:
           FruitShareCodes: ''
 
       - name: SSH connection to Actions
-        # if: ${{ failure() }}
+        if: ${{ failure() }}
         uses: P3TERX/debugger-action@master
 
   _52POJIE:
