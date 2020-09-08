@@ -1,9 +1,9 @@
 name: DailySign
 
 on:
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
   schedule:
     - cron:  0 16 * * * 
   issues:
@@ -40,26 +40,65 @@ jobs:
   JD-Checkin:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout codes
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Checkout ruicky/jd_sign_bot
         uses: actions/checkout@v2
         with:
-          repository: ruicky/jd_sign_bot 
-          
+          repository: ruicky/jd_sign_bot
+          path: jd_sign_bot
+
+      - name: Checkout lxk0301/scripts
+        uses: actions/checkout@v2
+        with:
+          repository: lxk0301/scripts
+          path: scripts
+
+
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
 
-      - name: Run app
-        run: npm install
-      - run: node app.js
+      - name: Run app.js in jd_sign_bot
+        run: |
+          cd ./jd_sign_bot/
+          npm instal
+          node app.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
           PUSH_KEY: ${{ secrets.SCKEY }}
 
-      # - name: SSH connection to Actions
-      #   if: ${{ failure() }}
-      #   uses: P3TERX/debugger-action@master
+      - name: Run app.js in scripts
+
+      - run: |
+          cd ./jd_sign_bot/
+          npm install
+        # 运行 【京豆签到脚本】
+          node jd_bean_sign.js
+        # 运行 【京小超领蓝币(小费)】
+          node jd_blueCoin.js
+        # 运行 【宠汪汪】
+          node jd_joy.js
+          node jd_joy_feedPets.js
+          node jd_joy_reward.js
+          node jd_joy_steal.js
+          node jd_moneyTree.js
+          node jd_pet.js
+          node jd_speed.js
+          node jd_superMarket.js
+          node jd_unsubscribe.js
+          node jd_fruit.js
+        env:
+          JD_COOKIE: ${{ secrets.JD_COOKIE }}
+          PUSH_KEY: ${{ secrets.SCKEY }}
+          PetShareCodes: ''
+          FruitShareCodes: ''
+
+      - name: SSH connection to Actions
+        # if: ${{ failure() }}
+        uses: P3TERX/debugger-action@master
 
   _52POJIE:
     runs-on: ubuntu-latest
@@ -82,6 +121,6 @@ jobs:
           SCKEY: ${{ secrets.SCKEY }}
           COOKIE: ${{ secrets.POJIECOOKIE }} 
 
-      - name: SSH connection to Actions
-        if: ${{ failure() }}
-        uses: P3TERX/debugger-action@master
+      # - name: SSH connection to Actions
+      #   if: ${{ failure() }}
+      #   uses: P3TERX/debugger-action@master
