@@ -64,7 +64,7 @@ jobs:
       - name: Run app.js in jd_sign_bot
         run: |
           cd ./jd_sign_bot/
-          npm instal
+          npm install
           node app.js
         env:
           JD_COOKIE: ${{ secrets.JD_COOKIE }}
