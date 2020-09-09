@@ -36,12 +36,11 @@ jobs:
       uses: appleboy/telegram-action@master
       with:
         to: ${{ secrets.TELEGRAM_CHATID }}
-        token: ${{ secrets.TELEGRAM_TOKEN }}
-        message:  1024-Autoreply.log
-        document: ./AccountBot/1024-Autoreply/1024.log
-
-    # #NOTE: SSH Debug     
-    - name: SSH connection to Actions
-      if: ${{ failure() }}
-      uses: P3TERX/debugger-action@master
+        token: ${{ secrets.TELEGRAM_TOKEN }} 
+        format: markdown
+        message_file: ./AccountBot/1024-Autoreply/1024.log
+    # # #NOTE: SSH Debug     
+    # - name: SSH connection to Actions
+    #   if: ${{ failure() }}
+    #   uses: P3TERX/debugger-action@master
         

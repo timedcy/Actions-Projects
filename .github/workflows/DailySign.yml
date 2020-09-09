@@ -1,9 +1,9 @@
 name: DailySign
 
 on:
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
   schedule:
     - cron:  0 16 * * * 
   issues:
@@ -43,11 +43,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Checkout ruicky/jd_sign_bot
-        uses: actions/checkout@v2
-        with:
-          repository: ruicky/jd_sign_bot
-          path: jd_sign_bot
+      # - name: Checkout ruicky/jd_sign_bot
+      #   uses: actions/checkout@v2
+      #   with:
+      #     repository: ruicky/jd_sign_bot
+      #     path: jd_sign_bot
 
       - name: Checkout lxk0301/scripts
         uses: actions/checkout@v2
@@ -61,14 +61,14 @@ jobs:
         with:
           node-version: '12.x'
 
-      - name: Run app.js in jd_sign_bot
-        run: |
-          cd ./jd_sign_bot/
-          npm install
-          node app.js
-        env:
-          JD_COOKIE: ${{ secrets.JD_COOKIE }}
-          PUSH_KEY: ${{ secrets.SCKEY }}
+      # - name: Run app.js in jd_sign_bot
+      #   run: |
+      #     cd ./jd_sign_bot/
+      #     npm install
+      #     node app.js
+      #   env:
+      #     JD_COOKIE: ${{ secrets.JD_COOKIE }}
+      #     PUSH_KEY: ${{ secrets.SCKEY }}
 
       - name: Run app.js in scripts
         run: |
@@ -92,9 +92,9 @@ jobs:
           PetShareCodes: ''
           FruitShareCodes: ''
 
-      - name: SSH connection to Actions
-        if: ${{ failure() }}
-        uses: P3TERX/debugger-action@master
+      # - name: SSH connection to Actions
+      #   if: ${{ failure() }}
+      #   uses: P3TERX/debugger-action@master
 
   _52POJIE:
     runs-on: ubuntu-latest
