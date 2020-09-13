@@ -5,11 +5,15 @@ on:
 #     branches:
 #       - master
   schedule:
-    - cron: '11 21 * * *'
+    - cron: '11 20 * * *'
+  issues:
+    types: [opened, edited, milestoned]
+
 
 
 jobs:
   t66y:
+
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -28,19 +32,49 @@ jobs:
         python3 1024.py 2>&1 | tee 1024.log
       env:
         LARGE_SECRET_PASSPHRASE: ${{ secrets.LARGE_SECRET_PASSPHRASE }}
-
-#       如果需要推送到 Telegram 用来提示，取消注释以下内容
-#       这部分的内容可以查看 https://www.github.com/appleboy/telegram-action
+      #如果需要推送到 Telegram 用来提示，取消注释以下内容
+      # 这部分的内容可以查看 https://www.github.com/appleboy/telegram-action
     - name: Send Info
       if: always()
       uses: appleboy/telegram-action@master
       with:
         to: ${{ secrets.TELEGRAM_CHATID }}
         token: ${{ secrets.TELEGRAM_TOKEN }} 
-        format: markdown
-        message_file: ./AccountBot/1024-Autoreply/1024.log
+        document: ./AccountBot/1024-Autoreply/1024.log
+    
     # # #NOTE: SSH Debug     
     # - name: SSH connection to Actions
     #   if: ${{ failure() }}
     #   uses: P3TERX/debugger-action@master
+  Hostloc:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 'Checkout codes'
+      uses: actions/checkout@v2
+
+    - name: 'Set python'
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.x'
+
+    - name: 'Get points'
+      env:
+        HOSTLOC_USERNAME: ${{ secrets.HOSTLOC_USERNAME }}
+        HOSTLOC_PASSWORD: ${{ secrets.HOSTLOC_PASSWORD }}
+      run: | 
+        cd ./AccountBot/hostloc/hostloc-auto-get-points-master
+        python -m pip install --upgrade requests
+        gpg --quiet --batch --yes --decrypt --passphrase="$LARGE_SECRET_PASSPHRASE" --output ./config.py config.py.gpg
+        python hostloc_get_points.py 2>&1 | tee hostloc.log
+      env:
+        LARGE_SECRET_PASSPHRASE: ${{ secrets.LARGE_SECRET_PASSPHRASE }}
+
+
+    - name: Send Info
+      if: always()
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_CHATID }}
+        token: ${{ secrets.TELEGRAM_TOKEN }} 
+        document: ./AccountBot/hostloc/hostloc-auto-get-points-master/hostloc.log
         
