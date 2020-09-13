@@ -6,8 +6,8 @@ on:
   #     - master
   schedule:
     - cron:  0 16 * * * 
-  issues:
-    types: [opened, edited, milestoned]
+  # issues:
+  #   types: [opened, edited, milestoned]
 
 jobs:
   # Glados-Checkin: https://github.com/xiaomustudent
