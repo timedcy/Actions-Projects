@@ -13,7 +13,6 @@ on:
 
 jobs:
   t66y:
-
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -66,8 +65,8 @@ jobs:
         python -m pip install --upgrade requests
         gpg --quiet --batch --yes --decrypt --passphrase="$LARGE_SECRET_PASSPHRASE" --output ./config.py config.py.gpg
         python hostloc_get_points.py 2>&1 | tee hostloc.log
-      env:
-        LARGE_SECRET_PASSPHRASE: ${{ secrets.LARGE_SECRET_PASSPHRASE }}
+      # env:
+      #   LARGE_SECRET_PASSPHRASE: ${{ secrets.LARGE_SECRET_PASSPHRASE }}
 
 
     - name: Send Info
