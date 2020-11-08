@@ -37,60 +37,60 @@ jobs:
       #   if: ${{ failure() }}
       #   uses: P3TERX/debugger-action@master
   
-  JD-Checkin:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+#   JD-Checkin:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v2
 
-      # - name: Checkout ruicky/jd_sign_bot
-      #   uses: actions/checkout@v2
-      #   with:
-      #     repository: ruicky/jd_sign_bot
-      #     path: jd_sign_bot
+#       # - name: Checkout ruicky/jd_sign_bot
+#       #   uses: actions/checkout@v2
+#       #   with:
+#       #     repository: ruicky/jd_sign_bot
+#       #     path: jd_sign_bot
 
-      - name: Checkout lxk0301/scripts
-        uses: actions/checkout@v2
-        with:
-          repository: lxk0301/scripts
-          path: scripts
+#       - name: Checkout lxk0301/scripts
+#         uses: actions/checkout@v2
+#         with:
+#           repository: lxk0301/scripts
+#           path: scripts
 
 
-      - name: Use Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
+#       - name: Use Node.js
+#         uses: actions/setup-node@v1
+#         with:
+#           node-version: '12.x'
 
-      # - name: Run app.js in jd_sign_bot
-      #   run: |
-      #     cd ./jd_sign_bot/
-      #     npm install
-      #     node app.js
-      #   env:
-      #     JD_COOKIE: ${{ secrets.JD_COOKIE }}
-      #     PUSH_KEY: ${{ secrets.SCKEY }}
+#       # - name: Run app.js in jd_sign_bot
+#       #   run: |
+#       #     cd ./jd_sign_bot/
+#       #     npm install
+#       #     node app.js
+#       #   env:
+#       #     JD_COOKIE: ${{ secrets.JD_COOKIE }}
+#       #     PUSH_KEY: ${{ secrets.SCKEY }}
 
-      - name: Run app.js in scripts
-        run: |
-          cd ./scripts/
-          npm install
-          node jd_bean_sign.js
-          node jd_blueCoin.js
-          node jd_joy.js
-          node jd_joy_feedPets.js
-          node jd_joy_reward.js
-          node jd_joy_steal.js
-          node jd_moneyTree.js
-          node jd_pet.js
-          node jd_speed.js
-          node jd_superMarket.js
-          node jd_unsubscribe.js
-          node jd_fruit.js
-        env:
-          JD_COOKIE: ${{ secrets.JD_COOKIE }}
-          PUSH_KEY: ${{ secrets.SCKEY }}
-          PetShareCodes: ''
-          FruitShareCodes: ''
+#       - name: Run app.js in scripts
+#         run: |
+#           cd ./scripts/
+#           npm install
+#           node jd_bean_sign.js
+#           node jd_blueCoin.js
+#           node jd_joy.js
+#           node jd_joy_feedPets.js
+#           node jd_joy_reward.js
+#           node jd_joy_steal.js
+#           node jd_moneyTree.js
+#           node jd_pet.js
+#           node jd_speed.js
+#           node jd_superMarket.js
+#           node jd_unsubscribe.js
+#           node jd_fruit.js
+#         env:
+#           JD_COOKIE: ${{ secrets.JD_COOKIE }}
+#           PUSH_KEY: ${{ secrets.SCKEY }}
+#           PetShareCodes: ''
+#           FruitShareCodes: ''
 
       # - name: SSH connection to Actions
       #   if: ${{ failure() }}
